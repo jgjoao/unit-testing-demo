@@ -6,6 +6,10 @@ import { AddProductComponent } from '../add-product/add-product.component';
 import { Product } from '../models/product.model';
 import { ProductsService } from '../services/products.service';
 
+/**
+ * Represents the ProductsComponent class.
+ * This component is responsible for displaying and managing products.
+ */
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',

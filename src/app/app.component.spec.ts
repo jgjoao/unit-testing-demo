@@ -33,9 +33,41 @@ describe('AppComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have app-navbar', () => {});
+  it('should have app-navbar', () => {
+    const navComponent = fixture.debugElement.query(By.directive(MockNavBarComponent));
+    expect(navComponent).toBeTruthy();
+  });
 
-  it('should have app-products', () => {});
+  it('should have app-products', () => {
+    const productsComponent = fixture.debugElement.query(By.directive(MockProductsComponent));
+    expect(productsComponent).toBeTruthy();
+  });
 
-  it('should test sum of two numbers', () => {});
+  it('should test sum of two numbers', () => {
+    const a = 5;
+    const b = 10;
+    const result = component.add(a, b);
+    expect(result).toEqual(a + b);
+  });
+
+  it('should test sum of negative numbers', () => {
+    const a = -5;
+    const b = -10;
+    const result = component.add(a, b);
+    expect(result).toEqual(a + b);
+  });
+
+  it('should test sum of zero and a number', () => {
+    const a = 0;
+    const b = 15;
+    const result = component.add(a, b);
+    expect(result).toEqual(a + b);
+  });
+
+  it('should test sum of decimal numbers', () => {
+    const a = 3.14;
+    const b = 2.71;
+    const result = component.add(a, b);
+    expect(result).toEqual(a + b);
+  });
 });

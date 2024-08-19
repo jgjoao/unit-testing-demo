@@ -43,20 +43,88 @@ describe('ProductsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('should fetch products successfully', () => {
+    // Arrange
+    const mockProducts: Product[] = [
+      {
+        id: '1', title: 'Product 1', price: '10',
+        description: '',
+        category: ''
+      },
+      {
+        id: '2', title: 'Product 2', price: '20',
+        description: '',
+        category: ''
+      },
+    ];
+   ;
 
-  describe('should test get products initially', () => {
-    it('should get product data initially', () => {});
+    // Act
+    component.getProducts();
 
-    it('should get product data initially on failure', () => {});
+    // Assert
+    expect(component.showSpinner).toBeFalse();
+    expect(mockProductService.getProducts).toHaveBeenCalled();
+    expect(component.productData).toEqual(jasmine.arrayContaining([]));
+    expect(component.showSpinner).toBeFalse();
   });
 
-  it('should test openDialog', () => {});
+  it('should open the dialog with the correct configuration', () => {
+      // Arrange
+      const dialogRefSpy = jasmine.createSpyObj('MatDialogRef', ['afterClosed']);
+      (dialog.open as jasmine.Spy).and.returnValue(dialogRefSpy);
 
-  it('should test editDialog', () => {});
+      // Act
+      component.openDialog();
 
-  describe('should test deleteProduct', () => {
-    it('should test deleteProduct on success', () => {});
+      // Assert
+      expect(dialog.open).toHaveBeenCalledWith(AddProductComponent, {
+        width: '40%',
+      });
+    });
 
-    it('should test deleteProduct on failure', () => {});
-  });
+  it('should open the dialog with the correct configuration for editing a product', () => {
+      // Arrange
+      const product: Product = {
+        id: '1',
+        title: 'Product 1',
+        price: '10',
+        description: '',
+        category: ''
+      };
+      const dialogRefSpy = jasmine.createSpyObj('MatDialogRef', ['afterClosed']);
+      (dialog.open as jasmine.Spy).and.returnValue(dialogRefSpy);
+
+      // Act
+      component.editProduct(product);
+
+      // Assert
+      expect(dialog.open).toHaveBeenCalledWith(AddProductComponent, {
+        data: product,
+        width: '40%',
+      });
+    });
+    it('should delete product successfully', () => {
+      // Arrange
+      const product: Product = {
+        id: '1',
+        title: 'Product 1',
+        price: '10',
+        description: '',
+        category: ''
+      };
+
+
+      mockProductService.deleteProduct.and.returnValue(of({})); // Mock the deleteProduct method to return an observable
+
+      // Act
+      component.deleteProduct(product.id);
+  ;
+
+      // Assert
+      expect(matSnackBar.open).toHaveBeenCalledWith('Deleted Successfully!...', '', {
+        duration: 3000
+      });
+    });
+
 });

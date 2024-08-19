@@ -5,6 +5,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Product } from '../models/product.model';
 import { ProductsService } from '../services/products.service';
 
+/**
+ * Represents the AddProductComponent class.
+ * This component is responsible for adding a product.
+ */
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
@@ -39,6 +43,17 @@ export class AddProductComponent implements OnInit {
     });
   }
 
+  /**
+   * Salva o produto.
+   *
+   * Se o objeto de dados não estiver vazio, atualiza o produto existente com os valores do formulário de produto.
+   * Caso contrário, salva um novo produto usando os valores do formulário de produto.
+   *
+   * @remarks
+   * Este método utiliza o `productService` para realizar a operação de salvar ou atualizar.
+   * Se a operação for bem-sucedida, uma mensagem de sucesso é exibida usando o componente `snackbar`,
+   * e o diálogo é fechado. Se ocorrer um erro, uma mensagem de erro é exibida usando o componente `snackbar`.
+   */
   saveProduct() {
     const product = this.productForm.value as Product;
     if (Object.keys(this.data).length) {

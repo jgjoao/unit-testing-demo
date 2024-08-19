@@ -1,3 +1,6 @@
+/**
+ * Represents the root component of the application.
+ */
 import { Component } from '@angular/core';
 
 @Component({
